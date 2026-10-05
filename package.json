@@ -5,6 +5,7 @@
   "main": "index.js",
   "files": [
     "index.js",
+    "logo.png",
     "README.md",
     "LICENSE"
   ],
