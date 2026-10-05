@@ -1,0 +1,36 @@
+{
+  "name": "picgo-plugin-axmipic",
+  "version": "0.1.0",
+  "description": "AXmiPic 图床上传插件（PicGo / PicList）",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [
+    "picgo",
+    "picgo-plugin",
+    "picgo-gui-plugin",
+    "piclist",
+    "axmipic",
+    "image-hosting",
+    "图床"
+  ],
+  "homepage": "https://github.com/AXmishell/picgo-plugin-axmipic#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AXmishell/picgo-plugin-axmipic.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AXmishell/picgo-plugin-axmipic/issues"
+  },
+  "author": "AXmishell",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}
