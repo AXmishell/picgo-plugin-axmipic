@@ -27,6 +27,21 @@ picgo-plugin-axmipic
 picgo install picgo-plugin-axmipic
 ```
 
+### 本地安装（离线）
+
+从 [Releases](https://github.com/AXmishell/picgo-plugin-axmipic/releases) 下载对应产物：
+
+- **PicGo GUI**：下载 `picgo-plugin-axmipic-<版本>-folder.zip`，解压得到完整插件文件夹，在「插件设置」标题栏右侧选择「导入本地插件（文件夹）」并选中该文件夹。
+- **PicGo-Core CLI**：下载 `picgo-plugin-axmipic-<版本>.tgz`，在 PicGo 配置目录（如 `~/.picgo`）执行：
+
+  ```bash
+  npm install /path/to/picgo-plugin-axmipic-<版本>.tgz
+  ```
+
+  安装后重启 PicGo 生效。
+
+> 每次发布都会附带 `SHA256SUMS` 校验文件。
+
 ## 获取 API 令牌
 
 1. 登录你的 AXmiPic 站点；
@@ -94,15 +109,24 @@ npm test
 本地联调：
 
 ```bash
-# PicGo-Core：从本地目录安装
-picgo install /path/to/picgo-plugin-axmipic
-picgo use uploader
+# PicGo-Core：在配置目录安装本地文件夹
+cd ~/.picgo
+npm install /path/to/picgo-plugin-axmipic
 ```
 
 ## 发布
 
+推送 `v*` 标签会触发 [Release 工作流](.github/workflows/release.yml)：运行测试、将 `package.json` 版本同步为标签、打包 `.tgz` 与文件夹 `.zip`、生成 `SHA256SUMS`，并创建 GitHub Release。
+
 ```bash
-npm publish
+npm version patch        # 或 minor / major，会提交并打 vX.Y.Z 标签
+git push origin main --follow-tags
+```
+
+如需发布到 npm（供 PicGo 在线插件市场检索）：
+
+```bash
+npm publish --access public
 ```
 
 发布后可提交到 [Awesome-PicGo](https://github.com/PicGo/Awesome-PicGo)，以便在 PicGo 插件市场被检索到。
