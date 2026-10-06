@@ -29,13 +29,13 @@ picgo install picgo-plugin-axmipic
 
 ### 本地安装（离线）
 
-从 [Releases](https://github.com/AXmishell/picgo-plugin-axmipic/releases) 下载对应产物：
+从 [Releases](https://github.com/AXmishell/picgo-plugin-axmipic/releases) 下载 `picgo-plugin-axmipic-<版本>.zip`：
 
-- **PicGo GUI**：下载 `picgo-plugin-axmipic-<版本>-folder.zip`，解压得到完整插件文件夹，在「插件设置」标题栏右侧选择「导入本地插件（文件夹）」并选中该文件夹。
-- **PicGo-Core CLI**：下载 `picgo-plugin-axmipic-<版本>.tgz`，在 PicGo 配置目录（如 `~/.picgo`）执行：
+- **PicGo GUI**：解压得到完整插件文件夹，在「插件设置」标题栏右侧选择「导入本地插件（文件夹）」并选中该文件夹。
+- **PicGo-Core CLI**：解压后，在 PicGo 配置目录（如 `~/.picgo`）执行：
 
   ```bash
-  npm install /path/to/picgo-plugin-axmipic-<版本>.tgz
+  npm install /path/to/picgo-plugin-axmipic-<版本>
   ```
 
   安装后重启 PicGo 生效。
@@ -116,7 +116,7 @@ npm install /path/to/picgo-plugin-axmipic
 
 ## 发布
 
-推送 `v*` 标签会触发 [Release 工作流](.github/workflows/release.yml)：运行测试、将 `package.json` 版本同步为标签、打包 `.tgz` 与文件夹 `.zip`、生成 `SHA256SUMS`，并创建 GitHub Release。
+推送 `v*` 标签会触发 [Release 工作流](.github/workflows/release.yml)：运行测试、将 `package.json` 版本同步为标签、将插件文件夹打包为 `.zip`、生成 `SHA256SUMS`，并创建 GitHub Release。
 
 ```bash
 npm version patch        # 或 minor / major，会提交并打 vX.Y.Z 标签

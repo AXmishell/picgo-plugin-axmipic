@@ -33,23 +33,29 @@ jobs:
       - name: 同步 package.json 版本到 tag
         run: npm version "${{ steps.version.outputs.version }}" --no-git-tag-version --allow-same-version
 
-      - name: 生成 npm 包（.tgz）
-        run: npm pack
-
       - name: 生成插件文件夹压缩包（.zip）
+        env:
+          PKG: picgo-plugin-axmipic-${{ steps.version.outputs.version }}
         run: |
           set -euo pipefail
-          version="${{ steps.version.outputs.version }}"
-          mkdir -p build
-          tar -xzf "picgo-plugin-axmipic-${version}.tgz" -C build
-          mv build/package "build/picgo-plugin-axmipic-${version}"
-          (cd build && zip -qr "../picgo-plugin-axmipic-${version}-folder.zip" "picgo-plugin-axmipic-${version}")
+          mkdir -p "build/${PKG}"
+          node -e '
+            const fs = require("fs");
+            const path = require("path");
+            const pkg = require("./package.json");
+            const dest = path.join("build", process.env.PKG);
+            const files = ["package.json", ...(pkg.files || [])];
+            for (const f of files) {
+              fs.cpSync(f, path.join(dest, f), { recursive: true });
+            }
+          '
+          (cd build && zip -qr "../${PKG}.zip" "${PKG}")
 
       - name: 生成校验文件（SHA256）
         run: |
           set -euo pipefail
           version="${{ steps.version.outputs.version }}"
-          sha256sum "picgo-plugin-axmipic-${version}.tgz" "picgo-plugin-axmipic-${version}-folder.zip" > SHA256SUMS
+          sha256sum "picgo-plugin-axmipic-${version}.zip" > SHA256SUMS
           cat SHA256SUMS
 
       - name: 发布 GitHub Release
@@ -61,6 +67,5 @@ jobs:
           gh release create "$GITHUB_REF_NAME" \
             --title "$GITHUB_REF_NAME" \
             --generate-notes \
-            "picgo-plugin-axmipic-${version}.tgz" \
-            "picgo-plugin-axmipic-${version}-folder.zip" \
+            "picgo-plugin-axmipic-${version}.zip" \
             "SHA256SUMS"
